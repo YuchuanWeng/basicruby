@@ -12,4 +12,13 @@ make_it_unique(one_array)
 
 puts one_array
 
+#local variable at an inner scope doesn't affect to outside
+#it proved that innerscope vars are not availalble to outer scope
+arr = [1,3,4,5, "outerscope"]
+
+arr.each do |any|
+  puts any
+  arr = [1,3,4,5]
+end
+
 
