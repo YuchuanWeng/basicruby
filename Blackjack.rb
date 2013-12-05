@@ -32,8 +32,29 @@ def message(msg)
   puts '==> #{msg}'
 end
 
+#Start the game portal
 puts "Welcome to Blackjack!"
+puts "What's your name?"
+your_name = gets.chomp
+puts "#{your_name}, are you ready to start? 1)Yes 2)No"
+ready_to_start =gets.chomp
 
+def ready_to_start
+  ready_to_start = ["1", "2"]
+end
+
+while !["1","2"].include?(ready_to_start)
+  puts "Please enter 1 or 2"
+  ready_to_start =gets.chomp
+if ready_to_start == '1'
+  puts "==>...Loading.....<=="
+  puts ""
+end
+if ready_to_start == '2'
+  puts"you can come back later"
+  exit
+end
+end
 
 suits = ['H', 'D', 'S', 'C']
 cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -45,15 +66,12 @@ cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 #    deck << [suit, cards]
 #  end
 #end
-
 deck = suits.product(cards)
 deck.shuffle!
 
 #Deal Cards
-
 mycards = []
 dealercards = []
-
 
 mycards << deck.pop
 dealercards << deck.pop
@@ -63,16 +81,12 @@ dealercards << deck.pop
 dealertotal = calculate_total(dealercards)
 mytotal = calculate_total(mycards)
 
-
-
 #show Cards
 puts "Dealer has: #{dealercards[0]} and #{dealercards[1]}, for a total of: #{dealertotal}"
-puts "You have: #{mycards[0]} and #{mycards[1]}, for a total of: #{mytotal}"
+puts "#{your_name} have: #{mycards[0]} and #{mycards[1]}, for a total of: #{mytotal}"
 puts ""
 
 #Player turn
-
-
 while mytotal < 21
   puts "What would you like to do 1)hit 2)stay"
   hit_or_stay = gets.chomp
@@ -88,26 +102,26 @@ while mytotal < 21
 
   #give player another card if he decides to hit
   new_card = deck.pop
-  puts "you get another card: #{new_card}"
+  puts "#{your_name} get another card: #{new_card}"
   mycards << new_card
   mytotal = calculate_total(mycards)
-  puts "Your total is now #{mytotal}"
+  puts "#{your_name}'s total is now #{mytotal}"
 
   if mytotal ==21
-    puts "you got the blackjack!!"
+    puts "#{your_name}, you hit the blackjack!!"
     exit
   elsif mytotal > 21
-    puts "you bust"
+    puts "#{your_name}, you bust"
     exit
   end
 end
 
-puts "you think your card is big enough? Let's see!"
+
+puts "Let's see whose bigger!"
 
 #Dealer turn
-
 if dealertotal == 21
-  puts "Sorry, you lost"
+  puts "Sorry, #{your_name}, you lose"
   exit
 end
 
@@ -121,18 +135,16 @@ while dealertotal < 17
   puts "Dealer total: #{dealertotal}"
 
   if dealertotal == 21
-    puts "Sorry, dealer hit blackjack. You lose"
+    puts "Sorry, dealer hit blackjack. #{your_name}, you lose"
     exit
   elsif dealertotal > 21
-    puts "Dealer busted...You won!"
+    puts "Dealer bust...So #{your_name}, you won!"
     exit
   end
-
 end
 
 
 #Compare cards
-
 puts "Dealer's card: "
 dealercards.each do |card|
   puts "=> " + card.to_s
@@ -145,27 +157,12 @@ mycards.each do |card|
 end
 
 if dealertotal >= mytotal
-   puts "Sorry, you lost!"
+   puts "Sorry, #{your_name}, you lost!"
 else
-   puts "You win!"
+   puts "#{your_name}, you win!"
 end
 
+
 exit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
